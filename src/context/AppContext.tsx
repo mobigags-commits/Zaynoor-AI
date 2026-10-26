@@ -32,7 +32,7 @@ const defaultUser: User = {
 
 const defaultAdSettings: AdSettings = {
   enabled: true,
-  publisherId: 'ca-pub-8923014892371928',
+  publisherId: 'ca-pub-7550936944889241',
   headerAd: true,
   sidebarAd: false,
   inContentAd: true,
