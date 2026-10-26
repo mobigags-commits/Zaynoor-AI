@@ -1,0 +1,10 @@
+{
+  "name": "Zaynoor AI Premium",
+  "description": "Production-grade AI ecosystem with 70+ AI tools, website and Android app builder, long-form video studio, Vercel deployment, and SEO/AEO/GEO optimization suite.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

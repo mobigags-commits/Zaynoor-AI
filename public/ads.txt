@@ -1,0 +1,3 @@
+# Zaynoor AI - Authorized Digital Sellers (ads.txt)
+# Replace ca-pub-0000000000000000 with your Google AdSense publisher ID in Admin > Ads Settings
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
