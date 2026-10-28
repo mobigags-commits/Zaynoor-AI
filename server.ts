@@ -599,8 +599,12 @@ app.get('/api/vercel/deployments', (_req: Request, res: Response) => {
 });
 
 // 8. Dynamic XML Sitemap route for SEO
-app.get('/sitemap.xml', (_req: Request, res: Response) => {
-  const baseUrl = 'https://zaynoor.ai';
+app.get('/sitemap.xml', (req: Request, res: Response) => {
+  const host = req.get('host') || 'zaynoor.ai';
+  const isHttps = req.protocol === 'https' || req.get('x-forwarded-proto') === 'https' || !host.includes('localhost');
+  const proto = isHttps ? 'https' : 'http';
+  const baseUrl = host.includes('localhost') ? 'https://zaynoor.ai' : `${proto}://${host}`;
+
   const routes = [
     '', '/chat', '/explore-tools', '/models', '/writing', '/rewriter', '/grammar',
     '/translator', '/summarizer', '/blog-writer', '/email-writer', '/social-media',
@@ -615,9 +619,12 @@ app.get('/sitemap.xml', (_req: Request, res: Response) => {
     '/saved-files', '/profile', '/settings', '/notifications', '/usage-credits',
     '/pricing', '/subscription', '/help', '/contact', '/faq', '/about',
     '/privacy', '/terms', '/cookie-policy', '/safety-policy', '/blog',
+    '/wallet', '/earning-hub', '/vercel-deploy', '/seo-audit',
     '/admin', '/admin/users', '/admin/providers', '/admin/ads', '/admin/seo',
-    '/admin/analytics', '/vercel-deploy'
+    '/admin/analytics', '/admin/payouts'
   ];
+
+  const today = new Date().toISOString().split('T')[0];
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -625,16 +632,45 @@ ${routes
   .map(
     (r) => `  <url>
     <loc>${baseUrl}${r}</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <lastmod>${today}</lastmod>
     <changefreq>${r === '' ? 'daily' : 'weekly'}</changefreq>
-    <priority>${r === '' ? '1.0' : r.startsWith('/admin') ? '0.2' : '0.8'}</priority>
+    <priority>${r === '' ? '1.0' : r.startsWith('/admin') ? '0.3' : '0.8'}</priority>
   </url>`
   )
   .join('\n')}
 </urlset>`;
 
-  res.header('Content-Type', 'application/xml');
-  res.send(sitemapXml);
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.setHeader('X-Robots-Tag', 'all');
+  res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=86400');
+  res.status(200).send(sitemapXml);
+});
+
+// Robots.txt route
+app.get('/robots.txt', (req: Request, res: Response) => {
+  const host = req.get('host') || 'zaynoor.ai';
+  const isHttps = req.protocol === 'https' || req.get('x-forwarded-proto') === 'https' || !host.includes('localhost');
+  const proto = isHttps ? 'https' : 'http';
+  const baseUrl = host.includes('localhost') ? 'https://zaynoor.ai' : `${proto}://${host}`;
+
+  const robotsTxt = `User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: ${baseUrl}/sitemap.xml
+`;
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=86400');
+  res.status(200).send(robotsTxt);
+});
+
+// Ads.txt route
+app.get('/ads.txt', (_req: Request, res: Response) => {
+  const adsTxt = `google.com, pub-7550936944889241, DIRECT, f08c47fec0942fa0\n`;
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.status(200).send(adsTxt);
 });
 
 // Start Express dev server or mount Vite middleware
