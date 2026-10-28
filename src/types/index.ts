@@ -9,6 +9,7 @@ export interface User {
   credits: number;
   maxCredits: number;
   avatar: string;
+  referralCode?: string;
 }
 
 export interface ChatMessage {
@@ -79,4 +80,26 @@ export interface BlogPost {
   readTime: string;
   image: string;
   tags: string[];
+}
+
+export interface Transaction {
+  id: string;
+  type: 'deposit' | 'withdrawal' | 'ad_revenue' | 'referral' | 'task_reward';
+  amount: number;
+  status: 'completed' | 'pending' | 'rejected';
+  method: string;
+  date: string;
+  reference: string;
+  accountDetails?: string;
+  fee?: number;
+}
+
+export interface WalletData {
+  availableBalance: number;
+  pendingBalance: number;
+  totalEarned: number;
+  currency: 'USD' | 'PKR';
+  adEarnings: number;
+  referralEarnings: number;
+  taskEarnings: number;
 }

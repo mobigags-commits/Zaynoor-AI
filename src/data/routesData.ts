@@ -78,9 +78,12 @@ export const ALL_ROUTES: RouteInfo[] = [
   { id: 'notifications', path: '/notifications', nameEn: 'Notifications', nameUr: 'اطلاعات و الرٹس', category: 'business', icon: 'Bell', descriptionEn: 'Project build alerts, render completion, and news', descriptionUr: 'پروجیکٹس اور سسٹم کے تازہ نوٹیفکیشنز' },
   { id: 'usage-credits', path: '/usage-credits', nameEn: 'Usage and Credits', nameUr: 'استعمال اور کریڈٹس', category: 'business', icon: 'Gauge', descriptionEn: 'Track token consumption, quota bars, and refill', descriptionUr: 'کریڈٹس اور ٹوکنز کا لائیو حساب کتاب' },
 
-  // Commercial & Subscriptions (53-54)
+  // Commercial, Wallet & Subscriptions (53-56)
+  { id: 'wallet', path: '/wallet', nameEn: 'Wallet (Deposit & Withdraw)', nameUr: 'والٹ (ڈپازٹ اور رقم نکلوانا)', category: 'business', icon: 'Wallet', descriptionEn: 'Deposit & withdraw funds via EasyPaisa, JazzCash, Bank, USDT, and manage balances', descriptionUr: 'ایزی پیسہ، جیز کیش، بینک اور کرپٹو سے رقم جمع اور نکالیں', isPopular: true, isNew: true },
+  { id: 'earning-hub', path: '/earning-hub', nameEn: 'Zero-Investment Earning Hub', nameUr: 'بغیر سرمایہ کاری آمدنی کا مرکز', category: 'business', icon: 'Coins', descriptionEn: 'Earn money without investment: Google AdSense revenue, 30% lifetime affiliate commissions, daily attendance rewards', descriptionUr: 'بغیر سرمایہ کاری کے گوگل ایڈسینس، 30% ریفرل کمیشن اور روزانہ بونس سے کمائیں', isPopular: true, isNew: true },
   { id: 'pricing', path: '/pricing', nameEn: 'Pricing Plans', nameUr: 'قیمتیں اور پلانز', category: 'business', icon: 'CreditCard', descriptionEn: 'Transparent tiers for creators, developers, and teams', descriptionUr: 'ہر قسم کے کام کے لیے شفاف اور لچکدار منصوبے', isPopular: true },
   { id: 'subscription', path: '/subscription', nameEn: 'Subscription Management', nameUr: 'سبسکرپشن مینجمنٹ', category: 'business', icon: 'ShieldCheck', descriptionEn: 'Invoices, payment methods, and plan upgrades', descriptionUr: 'انوائسز، ادائیگی اور پلان کی تبدیلی' },
+  { id: 'admin-payouts', path: '/admin-payouts', nameEn: 'Owner Payouts & Approvals', nameUr: 'ایڈمن پے آؤٹس اور منظوریاں', category: 'admin', icon: 'CheckCircle', descriptionEn: 'Owner console to approve/reject user withdrawals and review AdSense yield', descriptionUr: 'صارفین کی رقوم نکلوانے کی درخواستوں کی منظوری اور کنٹرول', isNew: true },
 
   // Support & Help (55-58)
   { id: 'help', path: '/help', nameEn: 'Help Center', nameUr: 'ہیلپ سینٹر', category: 'info', icon: 'LifeBuoy', descriptionEn: 'Getting started tutorials, guides, and troubleshooting', descriptionUr: 'رہنمائی اور سوالات کے جوابات' },

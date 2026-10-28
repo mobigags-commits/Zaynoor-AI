@@ -21,6 +21,9 @@ import { PricingPage } from './pages/PricingPage';
 import { BlogPage } from './pages/BlogPage';
 import { FAQPage, ContactPage, LegalPolicyPage } from './pages/InfoAndPolicyPages';
 import { ToolEnginePage } from './pages/ToolEnginePage';
+import { WalletPage } from './pages/WalletPage';
+import { EarningHubPage } from './pages/EarningHubPage';
+import { AdminPayoutsPage } from './pages/AdminPayoutsPage';
 
 const AppContent: React.FC = () => {
   const { currentRoute } = useApp();
@@ -69,8 +72,14 @@ const AppContent: React.FC = () => {
         return <LegalPolicyPage type="cookie" />;
       case 'safety-policy':
         return <LegalPolicyPage type="safety" />;
+      case 'wallet':
+        return <WalletPage />;
+      case 'earning-hub':
+        return <EarningHubPage />;
+      case 'admin-payouts':
+        return <AdminPayoutsPage />;
       default:
-        // Powers all remaining specialized tools (rewriter, grammar, translator, math, coding, models, etc.)
+        // Powers all remaining specialized tools
         return <ToolEnginePage />;
     }
   };

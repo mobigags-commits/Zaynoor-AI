@@ -14,6 +14,8 @@ import {
   Smartphone,
   Clapperboard,
   LayoutDashboard,
+  Wallet,
+  Coins,
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -26,11 +28,15 @@ export const Navbar: React.FC = () => {
     toggleTheme,
     user,
     setIsCommandPaletteOpen,
+    wallet,
+    currency,
   } = useApp();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
+    { id: 'wallet', labelEn: 'Wallet (PKR/$)', labelUr: 'والٹ و ادائیگی', icon: Layers },
+    { id: 'earning-hub', labelEn: 'Earning Hub', labelUr: 'مفت کمائی', icon: Sparkles },
     { id: 'chat', labelEn: 'AI Chat', labelUr: 'اے آئی چیٹ', icon: Sparkles },
     { id: 'explore-tools', labelEn: 'All 70+ Tools', labelUr: 'تمام 70+ ٹولز', icon: Layers },
     { id: 'website-builder', labelEn: 'Website Builder', labelUr: 'ویب بلڈر', icon: Layers },
@@ -147,6 +153,20 @@ export const Navbar: React.FC = () => {
             ) : (
               <Moon className="w-4 h-4 text-indigo-400" />
             )}
+          </button>
+
+          {/* Wallet Quick Balance Button */}
+          <button
+            onClick={() => setCurrentRoute('wallet')}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-950/70 to-slate-900 border border-emerald-500/40 text-xs font-bold text-emerald-300 hover:border-emerald-400 hover:scale-105 transition-all shadow-sm"
+            title="Wallet (Deposit & Withdraw)"
+          >
+            <Wallet className="w-3.5 h-3.5 text-emerald-400" />
+            <span>
+              {currency === 'PKR'
+                ? `Rs ${(wallet.availableBalance * 280).toLocaleString()}`
+                : `$${wallet.availableBalance.toFixed(2)}`}
+            </span>
           </button>
 
           {/* Credits Badge */}

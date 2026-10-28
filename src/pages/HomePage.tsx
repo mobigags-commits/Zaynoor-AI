@@ -20,6 +20,8 @@ import {
   TrendingUp,
   FileCode,
   Play,
+  Wallet,
+  Coins,
 } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
@@ -46,6 +48,8 @@ export const HomePage: React.FC = () => {
   };
 
   const quickShortcuts = [
+    { id: 'wallet', labelEn: 'Wallet (PKR/$)', labelUr: 'والٹ و ادائیگی', icon: Wallet, color: 'from-emerald-500 to-teal-500' },
+    { id: 'earning-hub', labelEn: 'Zero-Invest Earning', labelUr: 'مفت کمائی سینٹر', icon: Coins, color: 'from-amber-500 to-orange-500' },
     { id: 'chat', labelEn: 'AI Chat', labelUr: 'اے آئی چیٹ', icon: Sparkles, color: 'from-amber-500 to-rose-500' },
     { id: 'website-builder', labelEn: 'Website Builder', labelUr: 'ویب سائٹ بلڈر', icon: Globe, color: 'from-blue-500 to-cyan-500' },
     { id: 'app-builder', labelEn: 'Android Builder', labelUr: 'اینڈرائیڈ بلڈر', icon: Smartphone, color: 'from-emerald-500 to-teal-500' },
@@ -371,6 +375,136 @@ export const HomePage: React.FC = () => {
               <span>{language === 'ur' ? 'ورسل ڈیپلائے کھولیں' : 'Launch Deploy Center'}</span>
               <ChevronRight className="w-4 h-4" />
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Owner & User Financial Ecosystem: Wallet, Deposit, Cashout & Zero-Invest Earning */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-rose-900/50">
+        <div className="bg-gradient-to-r from-emerald-950/60 via-slate-950 to-rose-950/60 border border-emerald-500/40 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+          {/* Subtle glow */}
+          <div className="absolute -right-20 -top-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute -left-20 -bottom-20 w-80 h-80 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="relative z-10">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+              <div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-2">
+                  <Coins className="w-3.5 h-3.5" />
+                  {language === 'ur' ? 'مالک اور صارفین کے لیے مکمل فنانشل سسٹم' : 'Zero-Investment Earning & Direct Cashout Hub'}
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+                  {language === 'ur'
+                    ? 'والٹ، ڈپازٹ، فوری کیش آؤٹ اور بغیر سرمایہ کاری کمائی'
+                    : 'Interactive Wallet, Instant Cashout & 5 Earning Streams'}
+                </h2>
+                <p className="text-sm text-slate-300 max-w-2xl mt-1">
+                  {language === 'ur'
+                    ? 'EasyPaisa، JazzCash، بینک اور USDT کے ذریعے رقم جمع کروائیں اور فوراً نکلوائیں۔ روزانہ $2.50 (700 روپے) کیش بونس، 30% لائف ٹائم ریفرل اور ایڈسینس سے روزانہ کمائیں۔'
+                    : 'EasyPaisa, JazzCash, Raast, Bank Transfer and USDT support. Zero-investment earnings: $2.50 daily claim, 30% lifetime referrals, AdSense revenue sharing, and verified owner approvals.'}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setCurrentRoute('wallet')}
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-emerald-600/30 transition-all hover:scale-105"
+                >
+                  <Wallet className="w-4 h-4" />
+                  <span>{language === 'ur' ? 'والٹ اور کیش آؤٹ' : 'Open Wallet & Cashout'}</span>
+                </button>
+                <button
+                  onClick={() => setCurrentRoute('earning-hub')}
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-amber-600/30 transition-all hover:scale-105"
+                >
+                  <Coins className="w-4 h-4" />
+                  <span>{language === 'ur' ? 'مفت کمائی سینٹر' : 'Zero-Invest Earning Hub'}</span>
+                </button>
+                <button
+                  onClick={() => setCurrentRoute('admin-payouts')}
+                  className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all"
+                  title="Owner Approvals"
+                >
+                  <Shield className="w-4 h-4 text-rose-400" />
+                  <span>{language === 'ur' ? 'مالک کیش آؤٹ منظوری' : 'Owner Approvals'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* 3 Interactive Highlight Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Box 1 */}
+              <div
+                onClick={() => setCurrentRoute('wallet')}
+                className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 cursor-pointer transition-all hover:-translate-y-1 group"
+              >
+                <div className="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Wallet className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-sm text-white mb-1 flex items-center justify-between">
+                  <span>{language === 'ur' ? 'ڈپازٹ اور کیش آؤٹ فارمز' : 'Deposit & Withdrawal Forms'}</span>
+                  <ChevronRight className="w-4 h-4 text-emerald-400" />
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  {language === 'ur'
+                    ? 'EasyPaisa، JazzCash، میزان بینک اور ٹیلیگرام / یو ایس ڈی ٹی سے فوری ٹرانزیکشن۔ رسید ڈاؤن لوڈ اور ٹرانزیکشن آئی ڈی تصدیق۔'
+                    : 'Submit deposits with TID verification, request cashouts directly to Pakistani accounts or USDT with 0% fees.'}
+                </p>
+                <div className="mt-3 flex gap-2 text-[10px] font-mono text-emerald-400">
+                  <span className="bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">EasyPaisa</span>
+                  <span className="bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">JazzCash</span>
+                  <span className="bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">USDT</span>
+                </div>
+              </div>
+
+              {/* Box 2 */}
+              <div
+                onClick={() => setCurrentRoute('earning-hub')}
+                className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 cursor-pointer transition-all hover:-translate-y-1 group"
+              >
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Coins className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-sm text-white mb-1 flex items-center justify-between">
+                  <span>{language === 'ur' ? 'بغیر سرمایہ کاری روزانہ کمائی' : 'Zero-Investment Daily Cash'}</span>
+                  <ChevronRight className="w-4 h-4 text-amber-400" />
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  {language === 'ur'
+                    ? 'روزانہ $2.50 (700 روپے) مفت کلیم کریں، واٹس ایپ پر 30% لائف ٹائم ریفرل لنک شیئر کریں اور مائیکرو ٹاسکس مکمل کریں۔'
+                    : 'Claim daily $2.50 (Rs 700) rewards, earn 30% lifetime referral commissions via WhatsApp, and complete micro AI tasks.'}
+                </p>
+                <div className="mt-3 flex gap-2 text-[10px] font-mono text-amber-400">
+                  <span className="bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/40">Daily $2.50</span>
+                  <span className="bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/40">30% Ref</span>
+                  <span className="bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/40">Micro-Tasks</span>
+                </div>
+              </div>
+
+              {/* Box 3 */}
+              <div
+                onClick={() => setCurrentRoute('admin-payouts')}
+                className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-rose-500/50 cursor-pointer transition-all hover:-translate-y-1 group"
+              >
+                <div className="w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Shield className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-sm text-white mb-1 flex items-center justify-between">
+                  <span>{language === 'ur' ? 'مالک کیش آؤٹ منظوری پینل' : 'Owner Approvals Terminal'}</span>
+                  <ChevronRight className="w-4 h-4 text-rose-400" />
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  {language === 'ur'
+                    ? 'صارفین کی تمام کیش آؤٹ اور ڈپازٹ کی درخواستوں کا جائزہ لیں، ایک کلک میں منظور یا مسترد کریں، خودکار لیجر اپڈیٹ۔'
+                    : 'Review pending payouts, approve withdrawals to EasyPaisa/JazzCash, track platform fees, and manage total user ledger.'}
+                </p>
+                <div className="mt-3 flex gap-2 text-[10px] font-mono text-rose-400">
+                  <span className="bg-rose-950/60 px-2 py-0.5 rounded border border-rose-800/40">1-Click Approve</span>
+                  <span className="bg-rose-950/60 px-2 py-0.5 rounded border border-rose-800/40">Ledger</span>
+                  <span className="bg-rose-950/60 px-2 py-0.5 rounded border border-rose-800/40">Audit Trail</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
