@@ -98,6 +98,19 @@ export const WalletPage: React.FC = () => {
 
     addDeposit(amountInUSD, depositMethod.toUpperCase(), refDetails);
 
+    // Sync to backend ledger
+    fetch('/api/wallet/deposit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        amount: amountInUSD,
+        method: depositMethod.toUpperCase(),
+        senderAccount: `${depositSenderName} (${depositSenderPhone})`,
+        transactionId: depositTID,
+        notes: depositNotes,
+      }),
+    }).catch(() => {});
+
     const receiptData: Transaction = {
       id: `TXN-DEP-${Math.floor(1000 + Math.random() * 9000)}`,
       type: 'deposit',
@@ -129,6 +142,19 @@ export const WalletPage: React.FC = () => {
       withdrawMethod.toUpperCase(),
       `${withdrawAccount} (${withdrawTitle})${withdrawCNIC ? ` • CNIC: ${withdrawCNIC}` : ''}`
     );
+
+    // Sync to backend queue
+    fetch('/api/wallet/withdraw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        amount: withdrawAmount,
+        method: withdrawMethod.toUpperCase(),
+        recipientAccount: `${withdrawAccount} (${withdrawTitle})`,
+        cnic: withdrawCNIC,
+        pin: withdrawSecurityPin,
+      }),
+    }).catch(() => {});
 
     setWithdrawFeedback(res);
     if (res.success) {

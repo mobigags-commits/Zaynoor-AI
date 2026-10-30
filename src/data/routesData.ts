@@ -91,11 +91,12 @@ export const ALL_ROUTES: RouteInfo[] = [
   { id: 'faq', path: '/faq', nameEn: 'Frequently Asked Questions', nameUr: 'عام سوالات و جوابات', category: 'info', icon: 'HelpCircle', descriptionEn: 'Answers to billing, limits, video models, and exports', descriptionUr: 'تمام اہم سوالات کے فوری تسلی بخش جوابات' },
   { id: 'about', path: '/about', nameEn: 'About Zaynoor AI', nameUr: 'زینور اے آئی کے بارے میں', category: 'info', icon: 'Info', descriptionEn: 'Our mission, technology architecture, and team', descriptionUr: 'ہمارا مشن، ٹیکنالوجی اور وژن' },
 
-  // Policies & Legal (59-63)
+  // Policies & Legal (59-64)
   { id: 'privacy', path: '/privacy', nameEn: 'Privacy Policy', nameUr: 'پرائیویسی پالیسی', category: 'info', icon: 'Lock', descriptionEn: 'GDPR, CCPA compliance and zero data-selling pledge', descriptionUr: 'ڈیٹا کی مکمل حفاظت اور رازداری کی پالیسی' },
   { id: 'terms', path: '/terms', nameEn: 'Terms of Service', nameUr: 'استعمال کی شرائط', category: 'info', icon: 'FileText', descriptionEn: 'User rights, IP ownership of generated code and media', descriptionUr: 'پلیٹ فارم کے استعمال کے اصول و ضوابط' },
   { id: 'cookie-policy', path: '/cookie-policy', nameEn: 'Cookie Policy', nameUr: 'کوکی پالیسی', category: 'info', icon: 'Cookie', descriptionEn: 'Essential and optional cookie preference settings', descriptionUr: 'کوکیز کا شفاف استعمال اور ترجیحات' },
   { id: 'safety-policy', path: '/safety-policy', nameEn: 'AI Safety & Content Policy', nameUr: 'اے آئی سیفٹی اور مواد پالیسی', category: 'info', icon: 'ShieldAlert', descriptionEn: 'Responsible AI ethics, banned inputs, and guardrails', descriptionUr: 'محفوظ اور ذمہ دارانہ اے آئی کے اصول' },
+  { id: 'disclaimer', path: '/disclaimer', nameEn: 'Disclaimer', nameUr: 'ڈسکلیمر', category: 'info', icon: 'AlertTriangle', descriptionEn: 'Legal notice regarding synthetic generation and financial earnings', descriptionUr: 'قانونی نوٹس اور کمائی کی شرائط' },
 
   // Content & SEO Landing (64-66)
   { id: 'blog', path: '/blog', nameEn: 'Blog Home', nameUr: 'بلاگ کا صفحہ اول', category: 'info', icon: 'Newspaper', descriptionEn: 'Deep-dive articles on generative AI, video, and code', descriptionUr: 'جدید ٹیکنالوجی اور اے آئی پر تحقیقی مضامین' },

@@ -139,6 +139,11 @@ export const Footer: React.FC = () => {
                 </button>
               </li>
               <li>
+                <button onClick={() => handleLink('disclaimer')} className="hover:text-rose-400 transition-colors">
+                  {language === 'ur' ? 'قانونی ڈسکلیمر' : 'Legal Disclaimer'}
+                </button>
+              </li>
+              <li>
                 <button onClick={() => handleLink('cookie-policy')} className="hover:text-rose-400 transition-colors">
                   {language === 'ur' ? 'کوکی پالیسی' : 'Cookie Policy'}
                 </button>
@@ -149,8 +154,8 @@ export const Footer: React.FC = () => {
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLink('admin-ads')} className="hover:text-rose-400 transition-colors">
-                  {language === 'ur' ? 'ایڈسینس ترتیبات' : 'AdSense Publisher'}
+                <button onClick={() => handleLink('wallet')} className="hover:text-emerald-400 transition-colors font-medium">
+                  {language === 'ur' ? 'والٹ و کیش آؤٹ' : 'Wallet & Cashout'}
                 </button>
               </li>
             </ul>
@@ -162,15 +167,21 @@ export const Footer: React.FC = () => {
           <p className="text-slate-400">
             &copy; 2026 Zaynoor AI Inc. All rights reserved. Built with precision for creators and developers worldwide.
           </p>
-          <div className="flex items-center gap-4 text-slate-400">
+          <div className="flex flex-wrap items-center gap-4 text-slate-400">
+            <button onClick={() => handleLink('about')} className="hover:text-white transition-colors">
+              {language === 'ur' ? 'ہمارے بارے میں' : 'About Us'}
+            </button>
             <button onClick={() => handleLink('faq')} className="hover:text-white transition-colors">
               FAQ
             </button>
-            <button onClick={() => handleLink('blog')} className="hover:text-white transition-colors">
-              Blog
-            </button>
             <button onClick={() => handleLink('help')} className="hover:text-white transition-colors">
-              Support
+              {language === 'ur' ? 'ہیلپ سینٹر' : 'Help Center'}
+            </button>
+            <button onClick={() => handleLink('contact')} className="hover:text-white transition-colors">
+              {language === 'ur' ? 'رابطہ' : 'Contact'}
+            </button>
+            <button onClick={() => handleLink('earning-hub')} className="hover:text-amber-400 transition-colors">
+              {language === 'ur' ? 'مفت کمائی' : 'Earn Cash'}
             </button>
             <a
               href="/sitemap.xml"

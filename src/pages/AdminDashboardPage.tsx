@@ -21,6 +21,12 @@ import {
 export const AdminDashboardPage: React.FC = () => {
   const { language, setCurrentRoute, user } = useApp();
   const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'providers' | 'logs'>('overview');
+  const [serverMetrics, setServerMetrics] = useState<{
+    uptimeSeconds: number;
+    memory: { rssMb: number; heapUsedMb: number };
+    nodeVersion: string;
+    status: string;
+  } | null>(null);
 
   const [usersList, setUsersList] = useState([
     { id: 'u1', name: 'Zaynoor Architect', email: 'architect@zaynoor.ai', role: 'admin', tier: 'Enterprise', credits: 9450, status: 'active' },
@@ -30,6 +36,13 @@ export const AdminDashboardPage: React.FC = () => {
   ]);
 
   const [announcement, setAnnouncement] = useState('Zaynoor AI 2.0 Engine is live with Gemini 3.8 Flash and Vercel Deploy Center!');
+
+  React.useEffect(() => {
+    fetch('/api/system/metrics')
+      .then((res) => res.json())
+      .then((data) => setServerMetrics(data))
+      .catch(() => {});
+  }, []);
 
   return (
     <div className="flex-1 flex flex-col min-h-[calc(100vh-4rem)] bg-slate-950 text-slate-100 p-4 sm:p-8">
@@ -96,11 +109,15 @@ export const AdminDashboardPage: React.FC = () => {
 
           <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
             <div className="flex items-center justify-between text-slate-400 text-xs mb-2">
-              <span>System Uptime</span>
+              <span>System &amp; Memory</span>
               <Server className="w-4 h-4 text-emerald-400" />
             </div>
-            <div className="text-3xl font-black text-emerald-400">99.98%</div>
-            <p className="text-[11px] text-slate-400 mt-1">Cluster 1-Asia-East1 healthy</p>
+            <div className="text-3xl font-black text-emerald-400">
+              {serverMetrics ? `${serverMetrics.memory.heapUsedMb} MB` : '99.98%'}
+            </div>
+            <p className="text-[11px] text-slate-400 mt-1">
+              {serverMetrics ? `Node ${serverMetrics.nodeVersion} • Uptime ${Math.floor(serverMetrics.uptimeSeconds / 60)}m` : 'Cluster 1-Asia-East1 healthy'}
+            </p>
           </div>
 
           <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">

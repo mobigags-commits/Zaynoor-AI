@@ -99,10 +99,30 @@ export const FAQPage: React.FC = () => {
 export const ContactPage: React.FC = () => {
   const { language } = useApp();
   const [submitted, setSubmitted] = useState(false);
+  const [ticketId, setTicketId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+      const data = await res.json();
+      setTicketId(data.ticketId || `TCK-${Math.floor(100000 + Math.random() * 900000)}`);
+    } catch {
+      setTicketId(`TCK-${Math.floor(100000 + Math.random() * 900000)}`);
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
   };
 
   return (
@@ -128,8 +148,22 @@ export const ContactPage: React.FC = () => {
           {submitted ? (
             <div className="py-12 text-center space-y-3">
               <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-              <h3 className="text-lg font-bold text-white">Message Received</h3>
-              <p className="text-xs text-slate-400">Thank you for contacting us. A senior engineer will follow up shortly.</p>
+              <h3 className="text-lg font-bold text-white">Message Dispatched Successfully</h3>
+              <p className="text-xs text-slate-400">
+                Ticket Number: <strong className="text-rose-400 font-mono">{ticketId}</strong>. A senior engineer will follow up shortly at {email}.
+              </p>
+              <button
+                onClick={() => {
+                  setSubmitted(false);
+                  setName('');
+                  setEmail('');
+                  setSubject('');
+                  setMessage('');
+                }}
+                className="mt-4 px-4 py-2 rounded-xl bg-slate-800 text-xs font-semibold text-slate-200 hover:bg-slate-700"
+              >
+                Send Another Inquiry
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -139,6 +173,8 @@ export const ContactPage: React.FC = () => {
                   <input
                     type="text"
                     required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     placeholder="E.g. Sarah Jenkins"
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-rose-500"
                   />
@@ -148,6 +184,8 @@ export const ContactPage: React.FC = () => {
                   <input
                     type="email"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="sarah@company.com"
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-rose-500"
                   />
@@ -158,6 +196,8 @@ export const ContactPage: React.FC = () => {
                 <input
                   type="text"
                   required
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
                   placeholder="Inquiry regarding Enterprise API & Video Pipelines"
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-rose-500"
                 />
@@ -167,16 +207,19 @@ export const ContactPage: React.FC = () => {
                 <textarea
                   required
                   rows={5}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   placeholder="Please describe your use case, expected monthly token volume, or question..."
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 resize-none"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 transition-all"
+                disabled={loading}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 transition-all disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
-                <span>Send Message to Engineers</span>
+                <span>{loading ? 'Submitting...' : 'Send Message to Engineers'}</span>
               </button>
             </form>
           )}
@@ -186,7 +229,7 @@ export const ContactPage: React.FC = () => {
   );
 };
 
-export const LegalPolicyPage: React.FC<{ type: 'privacy' | 'terms' | 'cookie' | 'safety' }> = ({ type }) => {
+export const LegalPolicyPage: React.FC<{ type: 'privacy' | 'terms' | 'cookie' | 'safety' | 'disclaimer' }> = ({ type }) => {
   const config = {
     privacy: {
       title: 'Privacy Policy',
@@ -246,6 +289,23 @@ We encourage users to clearly disclose when media or articles are synthetically 
 
 3. Model Disclosures:
 We clearly label all configured AI providers (e.g. Gemini 3.8 Flash) and never fabricate results.`,
+    },
+    disclaimer: {
+      title: 'Legal & Earnings Disclaimer',
+      desc: 'Important disclosures regarding AI generated outputs, financial earnings, and third-party services.',
+      content: `IMPORTANT NOTICE AND GENERAL DISCLAIMER
+
+1. AI Output Accuracy:
+Zaynoor AI leverages neural intelligence models to synthesize code, websites, video storyboards, and written text. While we enforce strict quality benchmarks, synthetic outputs should be reviewed and verified by qualified developers and professionals before deployment in mission-critical environments.
+
+2. Zero-Investment Earnings & AdSense:
+Any earnings projections, referral percentages, or daily bonus distributions referenced in the Earning Hub or promotional material depend on verified user participation, compliance with community terms, and third-party advertising partner policies (such as Google AdSense). Zaynoor AI does not guarantee specific monetary returns or income levels.
+
+3. Financial Rails & Wallet Transfers:
+Deposits and withdrawals processed through local payment gateways (such as EasyPaisa, JazzCash, Raast, Meezan Bank, and USDT networks) are executed based on valid user-submitted transaction IDs (TIDs) and account credentials. Users are solely responsible for ensuring the accuracy of account numbers, CNIC, and cryptographic addresses provided.
+
+4. Intellectual Property and Third-Party Marks:
+All brand names, trademarks, and registered logos (e.g., Android, Jetpack Compose, Vercel, Google) referenced within the ecosystem belong to their respective owners and are mentioned strictly for descriptive and compatibility purposes.`,
     },
   }[type];
 

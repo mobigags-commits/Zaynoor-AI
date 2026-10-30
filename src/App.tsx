@@ -24,6 +24,12 @@ import { ToolEnginePage } from './pages/ToolEnginePage';
 import { WalletPage } from './pages/WalletPage';
 import { EarningHubPage } from './pages/EarningHubPage';
 import { AdminPayoutsPage } from './pages/AdminPayoutsPage';
+import { AboutPage } from './pages/AboutPage';
+import { HelpCenterPage } from './pages/HelpCenterPage';
+import { UserDashboardPage } from './pages/UserDashboardPage';
+import { SecuritySettingsPage } from './pages/SecuritySettingsPage';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { ALL_ROUTES } from './data/routesData';
 
 const AppContent: React.FC = () => {
   const { currentRoute } = useApp();
@@ -64,6 +70,10 @@ const AppContent: React.FC = () => {
         return <FAQPage />;
       case 'contact':
         return <ContactPage />;
+      case 'about':
+        return <AboutPage />;
+      case 'help':
+        return <HelpCenterPage />;
       case 'privacy':
         return <LegalPolicyPage type="privacy" />;
       case 'terms':
@@ -72,15 +82,30 @@ const AppContent: React.FC = () => {
         return <LegalPolicyPage type="cookie" />;
       case 'safety-policy':
         return <LegalPolicyPage type="safety" />;
+      case 'disclaimer':
+        return <LegalPolicyPage type="disclaimer" />;
       case 'wallet':
         return <WalletPage />;
       case 'earning-hub':
         return <EarningHubPage />;
       case 'admin-payouts':
         return <AdminPayoutsPage />;
-      default:
-        // Powers all remaining specialized tools
-        return <ToolEnginePage />;
+      case 'projects':
+      case 'dashboard':
+        return <UserDashboardPage />;
+      case 'settings':
+      case 'security':
+        return <SecuritySettingsPage />;
+      case '404':
+        return <NotFoundPage />;
+      default: {
+        // If route exists in our registered 70+ tools, render ToolEnginePage
+        const exists = ALL_ROUTES.some((r) => r.id === currentRoute);
+        if (exists) {
+          return <ToolEnginePage />;
+        }
+        return <NotFoundPage />;
+      }
     }
   };
 

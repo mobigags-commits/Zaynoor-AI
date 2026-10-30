@@ -59,22 +59,29 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       document.head.appendChild(scriptTag);
     }
 
-    let schemaData: any = {
-      '@context': 'https://schema.org',
-      '@type': schemaType,
-      'name': fullTitle,
-      'description': metaDesc,
-      'url': canonicalUrl,
-      'applicationCategory': 'DeveloperApplication',
-      'operatingSystem': 'Web, Android',
-      'offers': {
-        '@type': 'Offer',
-        'price': '0.00',
-        'priceCurrency': 'USD',
-      },
-    };
+    let schemaData: any;
 
-    if (faqItems && faqItems.length > 0) {
+    if (schemaType === 'Organization') {
+      schemaData = {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        'name': 'Zaynoor AI Inc.',
+        'url': 'https://zaynoor.ai',
+        'logo': 'https://zaynoor.ai/icon-512.svg',
+        'description': metaDesc,
+        'sameAs': [
+          'https://twitter.com/zaynoor_ai',
+          'https://github.com/mobigags-commits/Zaynoor-AI',
+          'https://linkedin.com/company/zaynoor-ai'
+        ],
+        'contactPoint': {
+          '@type': 'ContactPoint',
+          'contactType': 'customer support',
+          'email': 'support@zaynoor.ai',
+          'availableLanguage': ['English', 'Urdu']
+        }
+      };
+    } else if (faqItems && faqItems.length > 0) {
       schemaData = {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
@@ -87,10 +94,47 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
           },
         })),
       };
+    } else {
+      schemaData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebApplication',
+            'name': fullTitle,
+            'description': metaDesc,
+            'url': canonicalUrl,
+            'applicationCategory': 'DeveloperApplication',
+            'operatingSystem': 'Web, Android',
+            'inLanguage': ['en', 'ur'],
+            'offers': {
+              '@type': 'Offer',
+              'price': '0.00',
+              'priceCurrency': 'USD',
+            },
+          },
+          {
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+              {
+                '@type': 'ListItem',
+                'position': 1,
+                'name': 'Home',
+                'item': 'https://zaynoor.ai/'
+              },
+              ...(currentRoute !== 'home' ? [{
+                '@type': 'ListItem',
+                'position': 2,
+                'name': pageTitle,
+                'item': canonicalUrl
+              }] : [])
+            ]
+          }
+        ]
+      };
     }
 
     scriptTag.textContent = JSON.stringify(schemaData);
-  }, [fullTitle, metaDesc, canonicalUrl, schemaType, faqItems]);
+  }, [fullTitle, metaDesc, canonicalUrl, schemaType, faqItems, currentRoute, pageTitle]);
 
   return null;
 };
